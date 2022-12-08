@@ -31,6 +31,7 @@
         <p id="input"></p>
       </div>
       <p id="answer"></p>
+      <pre id="comment"></pre>
     </div>
     <div class="footer">
       <button id="prev">이전</button>
@@ -90,6 +91,9 @@
     check.addEventListener("click", () => {
       var answer = document.getElementById("answer");
       answer.textContent = cur_data["a"];
+
+      var comment = document.getElementById("comment");
+      comment.textContent = cur_data["comment"];
     });
 
     var next = document.getElementById("next");
@@ -126,6 +130,9 @@
 
         var answer = document.getElementById("answer");
         answer.textContent = "";
+
+        var comment = document.getElementById("comment");
+        comment.textContent = "";
       }
     });
 
@@ -144,6 +151,8 @@
         choices.textContent = cur_data["ch"];
         var answer = document.getElementById("answer");
         answer.textContent = "";
+        var comment = document.getElementById("comment");
+        comment.textContent = "";
       }
     });
 
