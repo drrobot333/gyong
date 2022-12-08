@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <link href="./style.css" rel="stylesheet" />
+  <script type="text/javascript" src="./week1.json"></script>
+  <script type="text/javascript" src="./week2.json"></script>
+  <script type="text/javascript" src="./week3.json"></script>
+  <script type="text/javascript" src="./week4.json"></script>
+  <script type="text/javascript" src="./week5.json"></script>
+  <script type="text/javascript" src="./week6.json"></script>
+  <script type="text/javascript" src="./week7.json"></script>
+  <script type="text/javascript" src="./week8.json"></script>
+  <script type="text/javascript" src="./week9.json"></script>
+  <script type="text/javascript" src="./week10.json"></script>
+  <script type="text/javascript" src="./week11.json"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="week">
+      <ul class="week-select"></ul>
+    </div>
+    <div class="question">
+      <p id="week"></p>
+      <p id="q"></p>
+    </div>
+    <div class="answer">
+      <div class="choices">
+        <pre id="choices"></pre>
+      </div>
+      <div class="input">
+        <p id="input"></p>
+      </div>
+      <p id="answer"></p>
+    </div>
+    <div class="footer">
+      <button id="prev">이전</button>
+      <button id="check">채점</button>
+      <button id="next">다음</button>
+    </div>
+  </div>
+  <script>
+    let week = 1;
+    let cur_q_num = 1;
+    let week_arr = [
+      0,
+      week1,
+      week2,
+      week3,
+      week4,
+      week5,
+      week6,
+      week7,
+      week8,
+      week9,
+      week10,
+      week11,
+    ];
+    var jsonData = JSON.parse(JSON.stringify(week1));
+    console.log(jsonData["1"]);
+
+    for (let i = 1; i < 12; i++) {
+      var jbBtn = document.createElement("button");
+      var jbBtnText = document.createTextNode("week" + i);
+
+      jbBtn.className = "week-btn";
+      jbBtn.addEventListener("click", () => {
+        week = i;
+        cur_q_num = 1;
+        jsonData = JSON.parse(JSON.stringify(week_arr[week]));
+        cur_data = jsonData[cur_q_num];
+
+        var q = document.getElementById("q");
+        q.textContent = cur_data["q"];
+
+        var choices = document.getElementById("choices");
+        choices.textContent = cur_data["ch"];
+
+        var answer = document.getElementById("answer");
+        answer.textContent = "";
+
+        var week_ele = document.getElementById("week");
+        week_ele.textContent = week + "주차";
+      });
+      jbBtn.appendChild(jbBtnText);
+      var week_select = document.getElementsByClassName("week-select");
+      week_select[0].appendChild(jbBtn);
+    }
+
+    var check = document.getElementById("check");
+    check.addEventListener("click", () => {
+      var answer = document.getElementById("answer");
+      answer.textContent = cur_data["a"];
+    });
+
+    var next = document.getElementById("next");
+    next.addEventListener("click", () => {
+      if (cur_q_num >= 10) {
+        if (week == 11) {
+          alert("마지막입니다.");
+          return;
+        }
+        week += 1;
+        cur_q_num = 1;
+        jsonData = JSON.parse(JSON.stringify(week_arr[week]));
+        cur_data = jsonData[cur_q_num];
+
+        var q = document.getElementById("q");
+        q.textContent = cur_data["q"];
+
+        var choices = document.getElementById("choices");
+        choices.textContent = cur_data["ch"];
+        var answer = document.getElementById("answer");
+        answer.textContent = "";
+        var week_ele = document.getElementById("week");
+        week_ele.textContent = week + "주차";
+      } else {
+        cur_q_num += 1;
+
+        cur_data = jsonData[cur_q_num];
+
+        var q = document.getElementById("q");
+        q.textContent = cur_data["q"];
+
+        var choices = document.getElementById("choices");
+        choices.textContent = cur_data["ch"];
+
+        var answer = document.getElementById("answer");
+        answer.textContent = "";
+      }
+    });
+
+    var prev = document.getElementById("prev");
+    prev.addEventListener("click", () => {
+      if (cur_q_num <= 1) {
+      } else {
+        cur_q_num -= 1;
+
+        cur_data = jsonData[cur_q_num];
+
+        var q = document.getElementById("q");
+        q.textContent = cur_data["q"];
+
+        var choices = document.getElementById("choices");
+        choices.textContent = cur_data["ch"];
+        var answer = document.getElementById("answer");
+        answer.textContent = "";
+      }
+    });
+
+    cur_data = jsonData[cur_q_num];
+
+    var week_ele = document.getElementById("week");
+    week_ele.textContent = week + "주차";
+
+    var q = document.getElementById("q");
+    q.textContent = cur_data["q"];
+
+    var choices = document.getElementById("choices");
+    choices.textContent = cur_data["ch"];
+    var answer = document.getElementById("answer");
+    answer.textContent = "";
+  </script>
+</body>
