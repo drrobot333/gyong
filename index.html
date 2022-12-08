@@ -37,6 +37,7 @@
       <button id="prev">이전</button>
       <button id="check">채점</button>
       <button id="next">다음</button>
+      <button id="random">random</button>
     </div>
   </div>
   <script>
@@ -156,6 +157,30 @@
         var comment = document.getElementById("comment");
         comment.textContent = "";
       }
+    });
+
+    var random = document.getElementById("random");
+    random.addEventListener("click", () => {
+      week = Math.floor(Math.random() * (11 - 1 + 1) + 1);
+      cur_q_num = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+
+      jsonData = JSON.parse(JSON.stringify(week_arr[week]));
+      cur_data = jsonData[cur_q_num];
+
+      var q = document.getElementById("q");
+      q.textContent = cur_data["q"];
+
+      var choices = document.getElementById("choices");
+      choices.textContent = cur_data["ch"];
+
+      var answer = document.getElementById("answer");
+      answer.textContent = "";
+
+      var comment = document.getElementById("comment");
+      comment.textContent = "";
+
+      var week_ele = document.getElementById("week");
+      week_ele.textContent = week + "주차";
     });
 
     cur_data = jsonData[cur_q_num];
